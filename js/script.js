@@ -17,7 +17,6 @@ btn.addEventListener("click", () => {
     })
     .then((data) => {
       data.map((country) => {
-        console.log(country.languages[0], country.languages[1]);
         const countryElement = document.createElement("div");
         const flagElement = document.createElement("img");
         const countryName = document.createElement("h3");
@@ -30,7 +29,25 @@ btn.addEventListener("click", () => {
 
         countryName.innerText = country.name;
 
-        countryPopulation.innerHTML = `<strong>Population:</strong> ${country.population}`;
+				const myPopulation = country.population;
+
+        const billion = myPopulation * 0.000000001;
+        const million = myPopulation * 0.000001;
+        const thousand = myPopulation * 0.001;
+
+        if (myPopulation > 999 && myPopulation <= 999999) {
+          countryPopulation.innerHTML = `<strong>Population:</strong> ${thousand.toFixed(
+            0
+          )} thousand`;
+        } else if (myPopulation > 999999 && myPopulation <= 999999999) {
+          countryPopulation.innerHTML = `<strong>Population:</strong> ${million.toFixed(
+            0
+          )} million`;
+        } else if (myPopulation > 999999999) {
+          countryPopulation.innerHTML = `<strong>Population:</strong> ${billion.toFixed(
+            1
+          )} billion`;
+        }
 
         countryCapital.innerHTML = `<strong>Capital:</strong> ${country.capital}`;
 
